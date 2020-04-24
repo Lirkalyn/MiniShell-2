@@ -28,15 +28,15 @@ int cd_checker(char *pathname);
 int choose(char *line);
 int lenght(char *str);
 char **spliter(char *str, char **splitterd);
-int cd(char **splitted, char *envp[]);
-int msetenv(char **splitted, char **envp[], char **arg);
-int munsetenv(char **splitted, char **envp[]);
-int menv(char **splitted, char *envp[]);
-int mexit(char **splitted, char *envp[]);
+int cd(cmd *cmds, char *envp[]);
+int msetenv(char **envp[], cmd *cmds);
+int munsetenv(char **envp[], cmd *cmds);
+int menv(char *envp[]);
+int mexit(void);
 char **copy(char *envp[], int add, int *pos);
 char **my_str_to_word_array(char const *str);
 int my_strcmp(char const *s1, char const *s2);
-int prefork(char *envp[], char **splitted, char **arg, cmd *cmds);
+int prefork(char *envp[], cmd *cmds);
 //int forking(char **splitted, char *path, char *envp[]);
 char *pathmaker(char *start, char *end);
 int exe_checker(char *pathname);
@@ -51,5 +51,7 @@ int piping(cmd *cmds, char *envp[]);
 
 int loop_forking(cmd cmds, char *envp[], int in , int out);
 int last_forking(cmd cmds, char *envp[], int in);
+int folder_finder(char **args, int args_nb);
+int error_disp(char *name, int opt);
 
 #endif

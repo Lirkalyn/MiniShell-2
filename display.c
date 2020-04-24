@@ -6,7 +6,7 @@
 */
 
 #include <unistd.h>
-#include "my.h"
+#include "minishell_2.h"
 
 void my_putchar(char c)
 {

@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "my.h"
+#include "minishell_2.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>

@@ -8,12 +8,13 @@
 
 SRC	=	main.c \
 		display.c \
-		builtin.c \
-		builtin2.c \
+		cd.c \
+		builtin_2.c \
+		builtin_3.c \
 		splitter.c \
 		my_str_to_word_array.c \
 		child.c \
-		child2.c \
+		child_2.c \
 		cmd.c \
 		cmd_2.c \
 		forking.c

@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "my.h"
+#include "minishell_2.h"
 
 char **copy(char *envp[], int add, int *pos)
 {
@@ -33,25 +33,25 @@ char **copy(char *envp[], int add, int *pos)
     return rsl;
 }
 
-int choice(char **envp[], char **splitted, char **arg, cmd *cmds)
+int choice(char **envp[], cmd *cmds)
 {
     switch (choose(cmds[0].bin))
     {
         case 0:
-            return cd(splitted, *envp);
+            return cd(cmds, *envp);
         case 1:
-            if (splitted[2][0] == '\0')
-                return menv(splitted, *envp);
+            if (cmds->args_nb == 0)
+                return menv(*envp);
             else
-                return msetenv(splitted, envp, arg);
+                return msetenv(envp, cmds);
         case 2:
-            return munsetenv(splitted, envp);
+            return munsetenv(envp, cmds);
         case 3:
-            return menv(splitted, *envp);
+            return menv(*envp);
         case 4:
-            return mexit(splitted, *envp);
+            return mexit();
         case 50:
-            return prefork(*envp, splitted, arg, cmds); // remove splitted
+            return prefork(*envp, cmds);
         default:
         break;
     }
@@ -91,9 +91,18 @@ int main(int argc, char *argv[], char *envp[])
         line = line_cleaner(line);
         if (line == NULL)
             return 84;
+/*
         arg = my_str_to_word_array(line);
+        printf("arg :\n");
+        for (int i = 0; arg[i]!= NULL; i++)
+            printf("%s\n", arg[i]);
         splitted = spliter(line, splitted);
+        printf("splitted :\n");
+        printf("0 = %s\n", splitted[0]);
+        printf("1 = %s\n", splitted[1]);
+        printf("2 = %s\n", splitted[2]);
+*/
         cmds = cmd_filler(line, cmds);
-        choice(&envp, splitted, arg, cmds);
+        choice(&envp, cmds);
     }
 }

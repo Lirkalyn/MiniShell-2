@@ -11,7 +11,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "my.h"
+#include "minishell_2.h"
 
 int my_strncmp(char const *s1, char const *s2, int n)
 {
@@ -93,7 +93,7 @@ int cmd_finder(char **dirs, cmd *cmds, int pos)
     }
 }*/
 
-int prefork(char *envp[], char **splitted, char **arg, cmd *cmds) // remove splitted
+int prefork(char *envp[], cmd *cmds)
 {
     int pos = 0;
     char *tmp = NULL;

@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "my.h"
+#include "minishell_2.h"
 
 int my_strcmp(char const *s1, char const *s2)
 {
@@ -55,7 +55,7 @@ char *pathmaker(char *start, char *end)
     return rsl;
 }
 
-char *cd2(char **splitted, char *envp[])
+char *cd2(char *folder, char *envp[])
 {
     int pos = 0;
     int len1 = 0;
@@ -67,37 +67,35 @@ char *cd2(char **splitted, char *envp[])
     for (; envp[pos] != NULL && my_strcmp(envp[pos], "HOME=\0") != 0; pos++);
     if (my_strcmp(envp[pos], "HOME=\0") == 0)
         tmp = (envp[pos] + 5);
-    for (; splitted[2][len1] != '\0'; len1 += 1);
+    for (; folder[len1] != '\0'; len1 += 1);
     for (; tmp[len2] != '\0'; len2 += 1);
     rsl = (char *)malloc((len1 + len2 + 1) * sizeof(char));
     rsl[(len1 + len2)] = '\0';
     for (; tmp[i] != '\0'; rsl[i] = tmp[i], i++);
     rsl[i++] = '/';
-    pos = (splitted[2][1] == '\0') ? 1 : 2;
-    for (; splitted[2][pos] != '\0'; rsl[i] = splitted[2][pos++], i++);
+    pos = (folder[1] == '\0') ? 1 : 2;
+    for (; folder[pos] != '\0'; rsl[i] = folder[pos++], i++);
     return rsl;
 }
 
-int cd(char **splitted, char *envp[])
+int cd(cmd *cmds, char *envp[])
 {
-    char *path = NULL;
+    int pos = folder_finder(cmds->args, cmds->args_nb);
     char *tmp = NULL;
 
-    if (splitted[2][0] != '/') {
-        if (splitted[2][0] == '~')
-            path = cd2(splitted, envp);
+    if (pos == -84)
+        return error_disp(NULL, 1);
+    if (cmds->args_nb != 0 && cmds->args[pos][0] != '/') {
+        if (cmds->args[pos][0] == '~')
+            cmds->path = cd2(cmds->args[pos], envp);
         else
-            path = pathmaker(getcwd(NULL, 0), splitted[2]);
-        tmp = splitted[2];
-        splitted[2] = path;
-        if (path == NULL)
+            cmds->path = pathmaker(getcwd(NULL, 0), cmds->args[pos]);
+        tmp = cmds->args[pos];
+        if (cmds->path == NULL)
             return 84;
     }
-    if (cd_checker(splitted[2]) == 0)
-        return chdir(splitted[2]);
-    else if (cd_checker(splitted[2]) != 0) {
-        splitted[2] = (tmp == NULL) ? splitted[2] : tmp;
-        myputstr(splitted[2], 2);
-        myputstr(": Permission denied", 0);
-    }
+    if (cd_checker(cmds->path) == 0)
+        return chdir(cmds->path);
+    else if (cd_checker(cmds->path) != 0)
+        return error_disp(cmds->args[pos], 0);
 }
