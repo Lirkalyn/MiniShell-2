@@ -53,6 +53,7 @@ int last_forking(cmd cmds, char *envp[], int in)
         if (in != 0)
             dup2(in, 0);
         execve(cmds.path, cmds.argv, envp);
+        perror("execve");
     }
     else if (c_pid > 0) {
         if ((pid = wait(&status)) < 0)
