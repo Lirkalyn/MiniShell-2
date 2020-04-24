@@ -35,6 +35,7 @@ int loop_forking(cmd cmds, char *envp[], int in , int out)
             close(out);
         }
         execve(cmds.path, cmds.argv, envp);
+        perror("execve");
     }
     else if (c_pid > 0) {
         if ((pid = wait(&status)) < 0)
