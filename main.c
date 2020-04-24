@@ -5,10 +5,7 @@
 ** stick-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "minishell_2.h"
+#include "include/minishell_2.h"
 
 char **copy(char *envp[], int add, int *pos)
 {
@@ -91,17 +88,6 @@ int main(int argc, char *argv[], char *envp[])
         line = line_cleaner(line);
         if (line == NULL)
             return 84;
-/*
-        arg = my_str_to_word_array(line);
-        printf("arg :\n");
-        for (int i = 0; arg[i]!= NULL; i++)
-            printf("%s\n", arg[i]);
-        splitted = spliter(line, splitted);
-        printf("splitted :\n");
-        printf("0 = %s\n", splitted[0]);
-        printf("1 = %s\n", splitted[1]);
-        printf("2 = %s\n", splitted[2]);
-*/
         cmds = cmd_filler(line, cmds);
         choice(&envp, cmds);
     }

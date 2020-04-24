@@ -5,10 +5,7 @@
 ** yolo-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 int folder_finder(char **args, int args_nb)
 {

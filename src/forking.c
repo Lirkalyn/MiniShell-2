@@ -5,11 +5,7 @@
 ** forking, forking everywhere-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 void error_wait(void)
 {

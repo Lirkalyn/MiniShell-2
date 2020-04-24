@@ -5,8 +5,7 @@
 ** display-desu
 */
 
-#include <unistd.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 void my_putchar(char c)
 {

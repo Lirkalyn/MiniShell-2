@@ -5,14 +5,7 @@
 ** smaller-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "minishell_2.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "../include/minishell_2.h"
 
 int exe_checker(char *pathname)
 {
@@ -74,17 +67,3 @@ int piping(cmd *cmds, char *envp[])
     }
     return last_forking(last, envp, in);
 }
-
-/*char **arg_checker(char **arg) // add cmds
-{
-    char **tmp = arg;
-
-    if (tmp[0][0] == '\0')
-        tmp[0] = NULL;
-    if (tmp[1][0] == '\0')
-        tmp[1] = NULL;
-    if (tmp[2][0] == '\0')
-        tmp[2] = NULL;
-    return tmp;
-} useless ?
-*/

@@ -5,10 +5,7 @@
 ** more_cmd-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 cmd *pipe_finder(cmd *cmds, char **line, int pos, int opt)
 {

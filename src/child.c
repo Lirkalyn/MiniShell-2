@@ -5,13 +5,7 @@
 ** small-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 int my_strncmp(char const *s1, char const *s2, int n)
 {
@@ -63,35 +57,6 @@ int cmd_finder(char **dirs, cmd *cmds, int pos)
     }
     return -1;
 }
-
-/*int forking(cmd cmds, char *envp[], int in , int out)
-{
-    int c_pid = fork();
-    int pid;
-    int status;
-
-    if (c_pid == 0) {
-        if (in != 0) {
-            dup2(in, 0);
-            close(in);
-        }
-        else if (out != 1) {
-            dup2(out, 1);
-            close(out);
-        }
-        execve(cmds.path, cmds.argv, envp);
-    }
-    else if (c_pid > 0) {
-        if ((pid = wait(&status)) < 0) {
-            perror("wait");
-            exit(1);
-        }
-    }
-    else {
-        perror("fork failed");
-        exit(2);
-    }
-}*/
 
 int prefork(char *envp[], cmd *cmds)
 {

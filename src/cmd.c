@@ -5,10 +5,7 @@
 ** cmd-desu
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "minishell_2.h"
+#include "../include/minishell_2.h"
 
 cmd *bin_filler(cmd *cmds, char **line, int pos)
 {
@@ -114,7 +111,7 @@ cmd *cmd_filler(char *line, cmd *cmds)
             return NULL;
         cmds = pipe_finder(cmds, &line, i, 2);
     }
-    printf("\n");
+/*    printf("\n");
     for (i = 0; i < nb; i++) {
         printf("%s\n", cmds[i].bin);
         for (int j = 0; j < cmds[i].args_nb; j++)
@@ -123,6 +120,6 @@ cmd *cmd_filler(char *line, cmd *cmds)
         printf("left = %d\n", cmds[i].pipe_left);
         printf("right = %d\n", cmds[i].pipe_right);
         printf("\n\n");
-    }
+    }*/
     return cmds;
 }

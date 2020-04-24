@@ -7,17 +7,17 @@
 .PHONY : clean fclean re
 
 SRC	=	main.c \
-		display.c \
-		cd.c \
-		builtin_2.c \
-		builtin_3.c \
-		splitter.c \
-		my_str_to_word_array.c \
-		child.c \
-		child_2.c \
-		cmd.c \
-		cmd_2.c \
-		forking.c
+		src/display.c \
+		src/cd.c \
+		src/builtin.c \
+		src/builtin_2.c \
+		src/splitter.c \
+		src/my_str_to_word_array.c \
+		src/child.c \
+		src/child_2.c \
+		src/cmd.c \
+		src/cmd_2.c \
+		src/forking.c
 
 OBJ	=	$(SRC:.c=.o)
 

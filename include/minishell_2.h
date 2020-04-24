@@ -5,8 +5,17 @@
 ** h-desu
 */
 
-#ifndef _MY_H_
-#define _MY_H_
+#ifndef _MINISHELL_2_
+#define _MINISHELL_2_
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 typedef struct Cmd {
     int nb;
