@@ -80,9 +80,7 @@ int cd(cmd *cmds, char *envp[])
     int pos = folder_finder(cmds->args, cmds->args_nb);
     char *tmp = NULL;
 
-    if (pos == -84)
-        return error_disp(NULL, 1);
-    if (cmds->args_nb != 0 && cmds->args[pos][0] != '/') {
+    if (cmds->args_nb != 0 && cmds->args[pos][0] != '/' && pos != -84) {
         if (cmds->args[pos][0] == '~')
             cmds->path = cd2(cmds->args[pos], envp);
         else
@@ -91,8 +89,8 @@ int cd(cmd *cmds, char *envp[])
         if (cmds->path == NULL)
             return 84;
     }
-    if (cd_checker(cmds->path) == 0)
+    if (cd_checker(cmds->path) == 0 && pos != -84)
         return chdir(cmds->path);
-    else if (cd_checker(cmds->path) != 0)
+    else if (cd_checker(cmds->path) != 0 && pos != -84)
         return error_disp(cmds->args[pos], 0);
 }

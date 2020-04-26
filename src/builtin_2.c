@@ -24,8 +24,8 @@ int error_disp(char *name, int opt)
         myputstr(name, 2);
         myputstr(": Permission denied", 0);
     }
-    if (opt  == 1)
-        myputstr("error : no folder found in your input", 0);
+//    if (opt  == 1)
+//        myputstr("error : no folder found in your input", 0);
     if (opt == 2)
         myputstr("error in setenv : please check the arguments", 0);
     if (opt == 3)
