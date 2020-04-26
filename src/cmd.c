@@ -102,7 +102,6 @@ cmd *cmd_filler(char *line, cmd *cmds)
         return NULL;
     for (i = 0; i < nb; i++) {
         cmds = pipe_finder(cmds, &line, i, 1);
-//        printf("line = %s", line);
         cmds = bin_filler(cmds, &line, i);
         if (cmds == NULL)
             return NULL;

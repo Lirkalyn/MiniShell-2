@@ -35,8 +35,10 @@ int loop_forking(cmd cmds, char *envp[], int in , int out)
         execve(cmds.path, cmds.argv, envp);
     }
     else if (c_pid > 0) {
-        if ((pid = wait(&status)) < 0)
-            error_wait();}
+        waitpid(c_pid, &status, 0);
+        if (WIFSIGNALED(status))
+            my_error_signal(status);
+    }
     else
         error_fork();
 }
@@ -53,8 +55,9 @@ int last_forking(cmd cmds, char *envp[], int in)
         execve(cmds.path, cmds.argv, envp);
     }
     else if (c_pid > 0) {
-        if ((pid = wait(&status)) < 0)
-            error_wait();
+        waitpid(c_pid, &status, 0);
+        if (WIFSIGNALED(status))
+            my_error_signal(status);
     }
     else
         error_fork();
