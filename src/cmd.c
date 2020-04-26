@@ -111,15 +111,5 @@ cmd *cmd_filler(char *line, cmd *cmds)
             return NULL;
         cmds = pipe_finder(cmds, &line, i, 2);
     }
-/*    printf("\n");
-    for (i = 0; i < nb; i++) {
-        printf("%s\n", cmds[i].bin);
-        for (int j = 0; j < cmds[i].args_nb; j++)
-            printf("%d : %d = %s\n", i, j, cmds[i].args[j]);
-        printf("nb = %d\n", cmds[i].args_nb);
-        printf("left = %d\n", cmds[i].pipe_left);
-        printf("right = %d\n", cmds[i].pipe_right);
-        printf("\n\n");
-    }*/
     return cmds;
 }

@@ -75,22 +75,25 @@ char *cd2(char *folder, char *envp[])
     return rsl;
 }
 
-int cd(cmd *cmds, char *envp[])
+int cd(cmd *cmds, char **envp[])
 {
     int pos = folder_finder(cmds->args, cmds->args_nb);
     char *tmp = NULL;
 
-    if (cmds->args_nb != 0 && cmds->args[pos][0] != '/' && pos != -84) {
+    if (pos < 0)
+        return cd_go_back(cmds, envp, pos);
+    cmds->path = (cmds->args[pos][0] == '/') ? cmds->args[pos] : NULL;
+    if (pos >= 0 && cmds->args_nb != 0 && cmds->args[pos][0] != '/') {
         if (cmds->args[pos][0] == '~')
-            cmds->path = cd2(cmds->args[pos], envp);
+            cmds->path = cd2(cmds->args[pos], *envp);
         else
             cmds->path = pathmaker(getcwd(NULL, 0), cmds->args[pos]);
         tmp = cmds->args[pos];
         if (cmds->path == NULL)
             return 84;
     }
-    if (cd_checker(cmds->path) == 0 && pos != -84)
-        return chdir(cmds->path);
-    else if (cd_checker(cmds->path) != 0 && pos != -84)
+    if (pos >= 0 && cmds->path != NULL && cd_checker(cmds->path) == 0)
+        return change_dir(cmds->path, envp);
+    else if (pos >= 0 && cmds->path != NULL && cd_checker(cmds->path) != 0)
         return error_disp(cmds->args[pos], 0);
 }

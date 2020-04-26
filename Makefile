@@ -9,6 +9,9 @@
 SRC	=	main.c \
 		src/display.c \
 		src/cd.c \
+		src/cd_2.c \
+		src/un_set_env.c \
+		src/un_set_env_2.c \
 		src/builtin.c \
 		src/builtin_2.c \
 		src/splitter.c \
@@ -17,7 +20,8 @@ SRC	=	main.c \
 		src/child_2.c \
 		src/cmd.c \
 		src/cmd_2.c \
-		src/forking.c
+		src/forking.c \
+		src/forking_2.c
 
 OBJ	=	$(SRC:.c=.o)
 

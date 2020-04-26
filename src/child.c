@@ -17,7 +17,26 @@ int my_strncmp(char const *s1, char const *s2, int n)
     return (0);
 }
 
-char **lister(char *str)
+char **spe_patch(char **dirs, char *envp[])
+{
+    int i = 0;
+    int where = -1;
+    char *tmp = NULL;
+
+    for (; envp[i] != NULL; i++)
+        where = (my_strcmp(envp[i], "HOME=\0") == 0) ? i : where;
+    if (where == -1)
+        return NULL;
+    tmp = (envp[where] + 5);
+    for (i = 0; dirs[i] != NULL; i++)
+        if (dirs[i][0] == '~' && dirs[i][1] == '/')
+            dirs[i] = pathmaker(tmp, (dirs[i] + 2));
+        else if (dirs[i][0] == '~' && dirs[i][1] != '/')
+            dirs[i] = pathmaker(tmp, (dirs[i] + 1));
+    return dirs;
+}
+
+char **lister(char *str, char *envp[])
 {
     int len = 0;
     int nb = 0;
@@ -26,6 +45,8 @@ char **lister(char *str)
     for (int i = 0; str[i] != '\0'; i++)
         nb += (str[i] == ':') ? 1 : 0;
     rsl = (char **)malloc((nb + 2) * sizeof(char *));
+    if (rsl == NULL)
+        return NULL;
     rsl[(nb + 1)] = NULL;
     for (int i = 0; i < (nb + 1); i++) {
         for (len = 0; str[len] != '\0' && str[len] != ':'; len++);
@@ -35,7 +56,7 @@ char **lister(char *str)
             rsl[i][pos] = str[pos];
         str = (str + len + 1);
     }
-    return rsl;
+    return spe_patch(rsl, envp);
 }
 
 int cmd_finder(char **dirs, cmd *cmds, int pos)
@@ -68,7 +89,7 @@ int prefork(char *envp[], cmd *cmds)
     for (; envp[pos] != NULL && my_strcmp(envp[pos], "PATH=\0") != 0; pos++);
     if (my_strcmp(envp[pos], "PATH=\0") == 0)
         tmp = (envp[pos] + 5);
-    dirs = lister(tmp);
+    dirs = lister(tmp, envp);
     for (int i = 0; i < cmds->nb; i++) {
         pos = cmd_finder(dirs , cmds, i);
         if (pos >= 0)

@@ -28,14 +28,11 @@ int loop_forking(cmd cmds, char *envp[], int in , int out)
     if (c_pid == 0) {
         if (in != 0) {
             dup2(in, 0);
-            close(in);
-        }
+            close(in);}
         else if (out != 1) {
             dup2(out, 1);
-            close(out);
-        }
+            close(out);}
         execve(cmds.path, cmds.argv, envp);
-        perror("execve");
     }
     else if (c_pid > 0) {
         if ((pid = wait(&status)) < 0)
@@ -54,7 +51,6 @@ int last_forking(cmd cmds, char *envp[], int in)
         if (in != 0)
             dup2(in, 0);
         execve(cmds.path, cmds.argv, envp);
-        perror("execve");
     }
     else if (c_pid > 0) {
         if ((pid = wait(&status)) < 0)

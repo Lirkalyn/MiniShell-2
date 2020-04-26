@@ -37,7 +37,7 @@ int cd_checker(char *pathname);
 int choose(char *line);
 int lenght(char *str);
 char **spliter(char *str, char **splitterd);
-int cd(cmd *cmds, char *envp[]);
+int cd(cmd *cmds, char **envp[]);
 int msetenv(char **envp[], cmd *cmds);
 int munsetenv(char **envp[], cmd *cmds);
 int menv(char *envp[]);
@@ -46,7 +46,6 @@ char **copy(char *envp[], int add, int *pos);
 char **my_str_to_word_array(char const *str);
 int my_strcmp(char const *s1, char const *s2);
 int prefork(char *envp[], cmd *cmds);
-//int forking(char **splitted, char *path, char *envp[]);
 char *pathmaker(char *start, char *end);
 int exe_checker(char *pathname);
 char **arg_checker(char **arg);
@@ -55,12 +54,13 @@ cmd *pipe_finder(cmd *cmds, char **line, int pos, int opt);
 int not_found(cmd cmds);
 cmd *argv_filler(cmd *cmds, int pos);
 int piping(cmd *cmds, char *envp[]);
-
-//int forking(cmd cmds, char *envp[], int in , int out);
-
 int loop_forking(cmd cmds, char *envp[], int in , int out);
 int last_forking(cmd cmds, char *envp[], int in);
 int folder_finder(char **args, int args_nb);
 int error_disp(char *name, int opt);
+int cd_go_back(cmd *cmds, char **envp[], int pos);
+int change_dir(char *path, char **envp[]);
+int pre_msetenv(char **envp[], cmd *cmds);
+void error_signal(int pid, int error);
 
 #endif

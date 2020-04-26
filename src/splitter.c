@@ -20,7 +20,7 @@ int choose(char *line)
     char test[5][9] = {"cd\0", "setenv\0", "unsetenv\0", "env\0", "exit\0"};
     int ok = 0;
 
-    for (int i = 0; i < 5; i++) { //can be remove ?
+    for (int i = 0; i < 5; i++) {
         for (int j = 0, ok = 0; test[i][j] != '\0' && line[j] != '\0'; j++) {
             if (test[i][(j + 1)] == '\0' && line[(j + 1)] != '\0')
                 ok += 1;
@@ -29,7 +29,7 @@ int choose(char *line)
             else if ((ok == 0) && (j == lenght(test[i])))
                 return i;
         }
-    } // can be remove ?
+    }
     return 50;
 }
 

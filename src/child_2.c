@@ -53,9 +53,6 @@ int piping(cmd *cmds, char *envp[])
     int fd[2];
     cmd last = cmds[(cmds[0].nb - 1)];
 
-    char *line = NULL;
-    size_t size;
-
     for (i = 0; i < cmds[0].nb; i++)
         if (exe_checker(cmds[i].path) != 0)
             return 1;

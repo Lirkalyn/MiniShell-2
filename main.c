@@ -35,12 +35,12 @@ int choice(char **envp[], cmd *cmds)
     switch (choose(cmds[0].bin))
     {
         case 0:
-            return cd(cmds, *envp);
+            return cd(cmds, envp);
         case 1:
             if (cmds->args_nb == 0)
                 return menv(*envp);
             else
-                return msetenv(envp, cmds);
+                return pre_msetenv(envp, cmds);
         case 2:
             return munsetenv(envp, cmds);
         case 3:
@@ -77,18 +77,18 @@ int main(int argc, char *argv[], char *envp[])
 {
     char *line = NULL;
     size_t size;
-    char **arg = NULL;
-    char **splitted = (char **)malloc(3 * sizeof(char *));
+    int tmp = 0;
+    char **cop = copy(envp, 1, &tmp);
     cmd *cmds;
 
     while (1) {
         myputstr("$>", 1);
-        if ((getline(&line, &size, stdin) == -1) || splitted == NULL)
+        if ((getline(&line, &size, stdin) == -1) || cop == NULL)
             return 84;
         line = line_cleaner(line);
         if (line == NULL)
             return 84;
         cmds = cmd_filler(line, cmds);
-        choice(&envp, cmds);
+        choice(&cop, cmds);
     }
 }

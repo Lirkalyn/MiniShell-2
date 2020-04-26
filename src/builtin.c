@@ -7,58 +7,38 @@
 
 #include "../include/minishell_2.h"
 
-int setenv_lenght(cmd *cmds)
-{
-    int len = 0;
-    int men = 0;
-
-    if (cmds->args_nb != 2)
-        return -84;
-    for (; cmds->args[0][len] != '\0'; len++);
-    for (; cmds->args[1][men] != '\0'; men++);
-    return (len + men);
-}
-
-int msetenv(char **envp[], cmd *cmds)
+int folder_finder(char **args, int args_nb)
 {
     int i = 0;
     int j = 0;
-    int len = setenv_lenght(cmds);
-    int pos = -5;
-    char **rsl = copy(*envp, 2, &pos);
 
-    if (rsl == NULL || pos == -5 || cmds->args_nb != 2 || len == -84)
-        return error_disp(NULL, 2);
-    rsl[pos] = (char *)malloc((len + 2) * sizeof(char));
-    rsl[pos][(len + 1)] = '\0';
-    for (; cmds->args[0][i] != '\0'; rsl[pos][i] = cmds->args[0][i], i++);
-    rsl[pos][i++] = '=';
-    if (cmds->args[1] != NULL)
-        for (; cmds->args[1][j] != '\0'; rsl[pos][i++] = cmds->args[1][j++]);
-    *envp = rsl;
+    if (args_nb == 1) {
+        for (; args[0][j] != '\0'; j++);
+        if (j == 1 && args[0][0] == '-')
+            return -5;
+    }
+    for (; i < args_nb; i++) {
+        if (args[i][0] != '-')
+            return i;
+    }
+    return -84;
 }
 
-int munsetenv(char **envp[], cmd *cmds)
+int error_disp(char *name, int opt)
 {
-    int i = 0;
-    int pos = -5;
-    char **rsl = copy(*envp, 1, &pos);
-
-    if (rsl == NULL || pos == -5 || cmds->args_nb != 1)
-        return error_disp(NULL, 3);
-    for (; rsl[i] != NULL && my_strcmp(rsl[i], cmds->args[0]) != 0; i++);
-    for (int j = i; rsl[j] != NULL; rsl[j] = rsl[(j + 1)], j++);
-    *envp = rsl;
-    return 0;
-}
-
-int menv(char *envp[])
-{
-    int i = 0;
-
-    for (; envp[i] != NULL; i++)
-        myputstr(envp[i], 0);
-    return 0;
+    if (opt == 0) {
+        myputstr(name, 2);
+        myputstr(": Permission denied.", 0);
+    }
+    if (opt  == 1)
+        myputstr("error : no folder found in your input.", 0);
+    if (opt == 2)
+        myputstr("error in setenv : please check the arguments.", 0);
+    if (opt == 3)
+        myputstr("error in unsetenv : please check the arguments.", 0);
+    if (opt == 4)
+        myputstr("error in cd - : OLDPWD not set.", 0);
+    return 84;
 }
 
 int mexit(void)
