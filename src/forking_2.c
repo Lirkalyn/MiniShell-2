@@ -11,8 +11,8 @@ void my_error_signal(int error)
 {
     if (error == SIGABRT)
         my_puterror("Abort", 0);
-    if (error == SIGSEGV)
-        my_puterror("Segmentation Fault", 0);
+    if (error == 139)
+        my_puterror("Segmentation fault (core dumped)", 0);
     if (error == SIGFPE)
         my_puterror("floating point exception", 0);
     if (error == SIGBUS)
