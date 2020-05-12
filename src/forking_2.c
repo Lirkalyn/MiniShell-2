@@ -11,16 +11,16 @@ void my_error_signal(int error)
 {
     if (WTERMSIG(error) == SIGABRT)
         my_puterror("Abort", 0);
-    if (WTERMSIG(error) == SIGSEGV)
+    if ((WTERMSIG(error) == SIGSEGV) && ((WCOREDUMP(error))))
         my_puterror("Segmentation fault (core dumped)", 0);
+    else if ((WTERMSIG(error) == SIGSEGV))
+        my_puterror("Segmentation fault", 0);
     if (WTERMSIG(error) == SIGFPE)
         my_puterror("Floating exception", 0);
     if (WTERMSIG(error) == SIGTERM)
         my_puterror("Terminated", 0);
     if (WTERMSIG(error) == SIGKILL)
         my_puterror("Killed", 0);
-    if (WTERMSIG(error) == SIGTRAP)
-        my_puterror("trace trap", 0);
     if (WTERMSIG(error) == SIGQUIT)
         my_puterror("Quit", 0);
     if (WTERMSIG(error) == SIGSTOP)
