@@ -13,8 +13,8 @@ void my_error_signal(int error)
         my_puterror("Abort", 0);
     if (error == 139)
         my_puterror("Segmentation fault (core dumped)", 0);
-    if (WTERMSIG(error) == SIGFPE)
-        my_puterror("floating point exception", 0);
+    if (error == 136)
+        my_puterror("Floating exception", 0);
     if (WTERMSIG(error) == SIGTERM)
         my_puterror("Terminated", 0);
     if (WTERMSIG(error) == SIGKILL)
