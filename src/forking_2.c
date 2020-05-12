@@ -9,22 +9,24 @@
 
 void my_error_signal(int error)
 {
-    if (error == SIGABRT)
+    if (WTERMSIG(error) == SIGABRT)
         my_puterror("Abort", 0);
     if (error == 139)
         my_puterror("Segmentation fault (core dumped)", 0);
-    if (error == SIGFPE)
+    if (WTERMSIG(error) == SIGFPE)
         my_puterror("floating point exception", 0);
-    if (error == SIGTERM)
+    if (WTERMSIG(error) == SIGTERM)
         my_puterror("Terminated", 0);
-    if (error == SIGKILL)
+    if (WTERMSIG(error) == SIGKILL)
         my_puterror("Killed", 0);
-    if (error == SIGTRAP)
+    if (WTERMSIG(error) == SIGTRAP)
         my_puterror("trace trap", 0);
-    if (error == SIGQUIT)
+    if (WTERMSIG(error) == SIGQUIT)
         my_puterror("Quit", 0);
-    if (error == SIGSTOP)
+    if (WTERMSIG(error) == SIGSTOP)
         my_puterror("Stopped", 0);
-    if (error == SIGILL)
+    if (WTERMSIG(error) == SIGILL)
         my_puterror("illegal hardware instruction", 0);
+    if (WTERMSIG(error) == SIGBUS)
+        my_puterror("Bus error", 0);
 }

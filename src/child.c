@@ -93,8 +93,8 @@ int prefork(char *envp[], cmd *cmds)
         pos = cmd_finder(dirs , cmds, i);
         if (pos >= 0)
             cmds[i].path = pathmaker(dirs[pos], cmds[i].bin);
-        else if (cmds[i].bin[0] == '/' && exe_checker(cmds[i].bin) == 0)
-            cmds[i].path = cmds[i].bin;
+        else if (ppath(cmds[i].bin) != NULL)
+            cmds[i].path = ppath(cmds[i].bin);
         else
             return not_found(cmds[i]);
         cmds = argv_filler(cmds, i);

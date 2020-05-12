@@ -63,5 +63,6 @@ int cd_go_back(cmd *cmds, char **envp[], int pos);
 int change_dir(char *path, char **envp[]);
 int pre_msetenv(char **envp[], cmd *cmds);
 void my_error_signal(int error);
+char *ppath(char *bin);
 
 #endif

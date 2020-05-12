@@ -18,6 +18,7 @@ SRC	=	main.c \
 		src/my_str_to_word_array.c \
 		src/child.c \
 		src/child_2.c \
+		src/child_3.c \
 		src/cmd.c \
 		src/cmd_2.c \
 		src/forking.c \
