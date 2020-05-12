@@ -84,7 +84,6 @@ int prefork(char *envp[], cmd *cmds)
     int pos = 0;
     char *tmp = NULL;
     char **dirs = NULL;
-    char *path;
 
     for (; envp[pos] != NULL && my_strcmp(envp[pos], "PATH=\0") != 0; pos++);
     if (my_strcmp(envp[pos], "PATH=\0") == 0)
@@ -94,11 +93,12 @@ int prefork(char *envp[], cmd *cmds)
         pos = cmd_finder(dirs , cmds, i);
         if (pos >= 0)
             cmds[i].path = pathmaker(dirs[pos], cmds[i].bin);
+        else if (cmds[i].bin[0] == '/' && exe_checker(cmds[i].bin) == 0)
+            cmds[i].path = cmds[i].bin;
         else
             return not_found(cmds[i]);
         cmds = argv_filler(cmds, i);
         if (cmds == NULL)
-            return 84;
-    }
+            return 84;}
     return piping(cmds, envp);
 }

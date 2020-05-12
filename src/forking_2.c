@@ -15,8 +15,6 @@ void my_error_signal(int error)
         my_puterror("Segmentation fault (core dumped)", 0);
     if (error == SIGFPE)
         my_puterror("floating point exception", 0);
-    if (error == SIGBUS)
-        my_puterror("Bus error", 0);
     if (error == SIGTERM)
         my_puterror("Terminated", 0);
     if (error == SIGKILL)
