@@ -81,7 +81,7 @@ int cd(cmd *cmds, char **envp[])
     char *tmp = NULL;
 
     if (pos < 0)
-        return cd_go_back(cmds, envp, pos);
+        return cd_go_back(cmds, envp, pos); //
     cmds->path = (cmds->args[pos][0] == '/') ? cmds->args[pos] : NULL;
     if (pos >= 0 && cmds->args_nb != 0 && cmds->args[pos][0] != '/') {
         if (cmds->args[pos][0] == '~')
